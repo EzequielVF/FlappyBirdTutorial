@@ -12,7 +12,7 @@ public class Renderer extends JPanel
 	protected void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-		flappyBird.flappyB.repaint(g);
+		FlappyBird.flappyB.repaint(g);
 	}
 	
 }

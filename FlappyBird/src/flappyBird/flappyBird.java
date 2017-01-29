@@ -23,9 +23,9 @@ import java.util.Random;
 
 import javax.swing.Timer;
 
-public class flappyBird implements ActionListener, MouseListener, KeyListener
+public class FlappyBird implements ActionListener, MouseListener, KeyListener
 {
-	public static flappyBird flappyB;
+	public static FlappyBird flappyB;
 	public final int WIDTH=800, HEIGHT=600;
 	public Renderer renderer;
 	public Rectangle bird;
@@ -61,7 +61,7 @@ public class flappyBird implements ActionListener, MouseListener, KeyListener
 	AudioStream wingsFlapSound;
 	*/
 	
-	public flappyBird() throws IOException
+	public FlappyBird() throws IOException
 	{
 		JFrame jframe = new JFrame();
 		Timer timer = new Timer(20, this);
@@ -199,7 +199,7 @@ public class flappyBird implements ActionListener, MouseListener, KeyListener
 	public static void main(String[]args)
 	{
 		try {
-			flappyB = new flappyBird();
+			flappyB = new FlappyBird();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
