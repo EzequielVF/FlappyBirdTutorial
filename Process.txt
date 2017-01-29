@@ -1,0 +1,46 @@
+Flappy Bird game in Java
+
+Flappy Bird is a game I've always been fascinated with. The "runner" style of game seems 
+simple, but implementing a 2D game in Java for the first time can be a little complex.
+In order to create the game, I followed a YouTube tutorial about that explained the  
+basics to get the game running. While watching this tutorial, I tried to think about 
+the concepts and how they relate to topics that I've studied in my college courses. Doing this 
+helped me better understand what each line of code was doing.
+
+There were a few concepts that I was familiar with from school, such as an ArrayList and 
+random number generations. However, there were also concepts that I wasn't familiar with. 
+Rendering graphics on a JFrame was a bit tricky, as I did not have much experience beforehand.
+Most of the programs I've created in school have been text based that only run inside a console.
+Despite the unfamiliarity, I enjoyed trying to create the GUI.  
+
+After I had the basics down from the video tutorial, I sought after how I could make the 
+game better. In my opinion, it needed depth and better visuals to engage the user.
+Thus, I ventured into foreign territory to attempt to add images for the first time in Java.
+It was a bit tricky because there are so many similar classes in Java that it can be confusing 
+to figure out which one is the best for the current situation. Luckily, I figured it out.
+I was able to add a background image, a bird image, and a tree image that went nicely with the style.
+To add depth, I implemented the motion of the trees in the background. I followed the same concept as 
+the one used for the moving columns. Yet, there were some additional fine tuning that I did to make
+the trees seem more three dimensional. I adjusted the speed of the trees based on their size. 
+By assuming that all the trees are about the same size in this world, that would suggest that the bigger 
+trees are closer to the foreground. If they are closer, they should move faster on the screen. The concept 
+is easiest to explain if you think about looking to the side of the road when you are in a moving car. 
+The objects in the environment that are closer to you whiz by the fastest. However, the objects in 
+the distance, such as mountains or buildings, move slower. In other words, they stay in your frame of sight
+for longer. I found the images on a royalty free image website https://pixabay.com/
+
+Then, I realized that the game wouldn't be as engaging if there wasn't any sound. So, I decided
+to take a shot at creating some sounds on my own, and using some royalty free sounds online. I
+converted all of them to .wav format, because I believe that is the format that Java supports. 
+After sifting through some Java documentation, I realized that Java has different packages for loading
+and playing sounds. The differences between each of them wasn't clear to me at first, so I chose one that
+I thought would work. That code only played the sound one time. This wasn't what I wanted. After browsing
+the web for additional answers, I came across a forum where people were suggesting that sounds had to be stored 
+as a Clip object. After trying this, the sounds played upon demand and implementing the rest wasn't so bad. 
+
+Finally, I decided to export the project as a runnable .jar file. This part had me run into some more 
+issues. Apparently, when loading and referencing images within your Java project, you can't load them 
+directly from another folder. They have to be loaded by a specific getResource() function that allows for
+them to be found after exporting. This required some additional coding and more help from the internet. 
+After this, I was able to get my version of the game running from the .jar file! It felt really good
+to build a game that I could show my friends and let them test it out, too. 
