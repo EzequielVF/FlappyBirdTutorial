@@ -32,6 +32,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener
 	Image birdImage;
 	Image landscape;
 	Image tree;
+	Image thecolumn;
 	
 	public ArrayList<ImageWithAttributes>trees;
 	public ArrayList<Rectangle> columns;
@@ -43,23 +44,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener
 	public int speed = 5;
 	public int countForChirps;
 	
-	File gameOverSound = new File("sounds/gameOver.wav");
-	File wingsFlapSound = new File("sounds/wingsFlap.wav");
-	File crashSound = new File("sounds/crash.wav");
-	File dingSound = new File("sounds/ding.wav");
-	File chirpSound = new File("sounds/chirp.wav");
-	
 	Color seeThrough = new Color(0,0,0,0);
-
-	// Code below does not work properly for sounds
-	/*
-	InputStream gameOverFile = new FileInputStream("sounds/gameOver.wav");
-	InputStream crashFile = new FileInputStream("sounds/crash.wav");
-	InputStream wingsFlapFile = new FileInputStream("sounds/wingsFlap.wav");
-	AudioStream gameOverSound;
-	AudioStream crashSound;
-	AudioStream wingsFlapSound;
-	*/
 	
 	public FlappyBird() throws IOException
 	{
@@ -82,17 +67,18 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener
 			birdImage = ImageIO.read(ResourceLoader.load("imgs/bird1.png"));
 			landscape = ImageIO.read(ResourceLoader.load("imgs/landscape1.png"));
 			tree = ImageIO.read(ResourceLoader.load("imgs/tree.png"));
+			thecolumn = ImageIO.read(ResourceLoader.load("imgs/column.png"));
 		}
 		catch(Exception e)
 		{}
 		bird = new Rectangle(WIDTH/2 -10, HEIGHT/2 -10, 20, 40);
 		
-		trees = new ArrayList<ImageWithAttributes>();
+		trees = new ArrayList<>();
 		addTree(true);
 		addTree(true);
 		addTree(true);
 		
-		columns = new ArrayList<Rectangle>();
+		columns = new ArrayList<>();
 		addColumn(true);
 		addColumn(true);
 		addColumn(true);
@@ -144,11 +130,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		g.drawImage(landscape, 0,0, WIDTH, HEIGHT - 110, null);
-		/*
-		g.drawImage(tree, treeX -= speed/2, HEIGHT - 200 - 100, 200, 200, null);
-		g.drawImage(tree, treeX -= speed/4, HEIGHT - 200 - 100, 200, 200, null);
-		g.drawImage(tree, treeX -= speed/4, HEIGHT - 200 - 100, 200, 200, null);
-		*/
+
 		for(ImageWithAttributes tree: trees)
 		{
 			paintTree(g, tree);
@@ -165,7 +147,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener
 		
 		for(Rectangle column : columns)
 		{
-			paintColumn(g, column);
+			paintColumn(g, column, thecolumn);
 		}
 		
 		g.setColor(Color.white);
@@ -183,10 +165,9 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener
 	}
 	
 	
-	public void paintColumn(Graphics g, Rectangle column)
+	public void paintColumn(Graphics g, Rectangle column, Image thecolumn)
 	{
-		g.setColor(Color.GREEN.darker().darker());
-		g.fillRect(column.x, column.y, column.width, column.height);
+		g.drawImage(thecolumn, column.x, column.y, column.width, column.height, null);
 	}
 	
 	
@@ -219,10 +200,6 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener
 					clip.start();
 					soundAlreadyPlayed = true;
 				}
-				/*
-				gameOverSound = new AudioStream(gameOverFile);
-				AudioPlayer.player.start(gameOverSound);
-				*/
 				break;
 			case 1:
 				if (soundAlreadyPlayed == false)
@@ -231,19 +208,11 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener
 					clip1.open(AudioSystem.getAudioInputStream(ResourceLoader.class.getResource("/sounds/crash.wav")));
 					clip1.start();
 				}
-				/*
-				crashSound = new AudioStream(crashFile);
-				AudioPlayer.player.start(crashSound);
-				*/
 				break;
 			case 2:
 				Clip clip2 = AudioSystem.getClip();
 				clip2.open(AudioSystem.getAudioInputStream(ResourceLoader.class.getResource("/sounds/wingsFlap.wav")));
 				clip2.start();
-				/*
-				wingsFlapSound = new AudioStream(wingsFlapSound);
-				AudioPlayer.player.start(wingsFlapSound);
-				*/
 				break;
 			case 3:
 				Clip clip3 = AudioSystem.getClip();
@@ -314,7 +283,6 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener
 			
 			for(Rectangle column: columns)
 			{
-				//if(column.y ==0 && bird.x + bird.width / 2 > column.x + column.width / 2 - 10 && bird.x + bird.width/2 < column.x + column.width/2 +10)
 				if(column.y ==0 && bird.x + bird.width / 2 == column.x + column.width / 2)
 				{
 					countForChirps++;
@@ -350,7 +318,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener
 					
 					else if (bird.y < column.height)
 						bird.y = column.height;
-				}		
+				}
 			}
 			
 			if(bird.y > HEIGHT -120 - bird.height)
@@ -422,6 +390,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener
 		}
 		
 	}
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		try {
@@ -469,7 +438,12 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-		
+		if(e.getKeyCode() == KeyEvent.VK_UP)
+			try {
+				jump();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 	}
 
 
@@ -479,9 +453,6 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener
 		
 	}
 }
-
-
-
 
 class ImageWithAttributes implements Comparable<ImageWithAttributes>
 {
