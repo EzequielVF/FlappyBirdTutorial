@@ -55,7 +55,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener
 
 		jframe.add(renderer);
 		jframe.setSize(WIDTH, HEIGHT);
-		jframe.setTitle("Flappy Bird");
+		jframe.setTitle("Angry Flappy");
 		jframe.addMouseListener(this);
 		jframe.addKeyListener(this);
 		jframe.setVisible(true);
@@ -71,6 +71,7 @@ public class FlappyBird implements ActionListener, MouseListener, KeyListener
 		}
 		catch(Exception e)
 		{}
+		jframe.setIconImage(birdImage);
 		bird = new Rectangle(WIDTH/2 -10, HEIGHT/2 -10, 20, 40);
 		
 		trees = new ArrayList<>();
